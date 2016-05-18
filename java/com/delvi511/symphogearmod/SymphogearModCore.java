@@ -46,15 +46,12 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 
 	    @EventHandler
-	    /**
-    	 * @param addToolMaterial (名前,回収レベル,耐久値,採掘速度,ダメージ倍率,エンチャのつきやすさ)
-    	 * @see preInit
-    	 */
+
 	    public void preInit( FMLPreInitializationEvent event )
 	    {
 	    	//獄鎌・イガリマの設定ここから
-	    	IGALIMA = EnumHelper.addToolMaterial("IGALIMA", 0, 1590, 0.0F, 999995.9F, 35);//IGALIMAというツールマテリアルの詳細な設定
 	    	/*addToolMaterial(名前,回収レベル,耐久値,採掘速度,ダメージ倍率,エンチャのつきやすさ)*/
+	    	IGALIMA = EnumHelper.addToolMaterial("IGALIMA", 0, 1590, 0.0F, 999995.9F, 35);//IGALIMAというツールマテリアルの詳細な設定
 	    	igalima = new ItemSword(IGALIMA)//剣として登録
 	    	.setCreativeTab(CreativeTabs.tabCombat)//クリエイティブ時、「戦闘」タブにアイテムを追加
 	    	.setUnlocalizedName("igalima")//言語が非対応の場合に表示される名前
@@ -95,6 +92,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 	    	GameRegistry.registerItem(nehushtan_boots, "nehushtanBoots");
 	    	//ネフシュタンの鎧の設定ここまで
 	    	//赤のセイバーの設定ここから
+	    	/*addToolMaterial(名前,回収レベル,耐久値,採掘速度,ダメージ倍率,エンチャのつきやすさ)*/
 	    	SABER = EnumHelper.addToolMaterial("SABER", 0, 730, 0.0F, 5.0F, 14);//SABERというツールマテリアルの詳細な設定
 	    	redsaber = new ItemSword(SABER)
 	    	.setCreativeTab(CreativeTabs.tabCombat)//クリエイティブ時、「戦闘」タブにアイテムを追加
