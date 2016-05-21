@@ -26,18 +26,14 @@ public class NehuItemArmor extends ItemArmor{
 		this.setCreativeTab(CreativeTabs.tabCombat);
 	}
 
-	//ヘルメットのテクスチャ
+	//防具のテクスチャ
 	public static final String HELMET_TEXTURE = "symphogear:neh_layer_1";
-	//胴当てのテクスチャ
 	public static final String CHESTPLATE_TEXTURE = "symphogear:neh_layer_1";
-	//レギンスのテクスチャ
 	public static final String LEGGINGS_TEXTURE = "symphogear:neh_layer_2";
-	//ブーツのテクスチャ
 	public static final String BOOTS_TEXTURE = "symphogear:neh_layer_1";
 
     //renderIndexは以下でArmorTextureを指定する場合はどんな値でも良い。
 
-    //ItemStack:防具のItemStack, Entity:装備してるEntity, Slot:装備してるスロット, Layer:オーバーレイかどうか
 	@SideOnly(Side.CLIENT)
 	public String getArmorTexture(ItemStack itemStack, Entity entity, int slot, String type){
 		if (this.armorType == 2){
@@ -46,16 +42,18 @@ public class NehuItemArmor extends ItemArmor{
 			return "symphogear:textures/models/armor/neh_layer_1.png";
 		}
 	}
-
+	
+	@Override
 	@SuppressWarnings("unchecked")
-	public void onArmorTickUpdate(World world, EntityPlayer player, ItemStack itemStack){
+	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){		
+		// もしプレーヤーがスニーク中かつ設定されたキーを押下しているなら
 		if (!world.isRemote && player.isSneaking() && Keyboard.isKeyDown(SymphogearModCore.keyBinding)){
 			try{
-				List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(player, player.boundingBox.expand(50, 10, 50));
-				for(Entity entity : list){
+				List<Entity> entityList = world.getEntitiesWithinAABBExcludingEntity(player, player.boundingBox.expand(50, 10, 50));
+				for(Entity entity : entityList){
 					if(entity.isEntityAlive() && !entity.isDead && (entity instanceof EntityMob || entity instanceof EntitySlime)){
 						entity.attackEntityFrom(DamageSource.causeMobDamage((EntityPlayer)player), 500);
-						itemStack.damageItem(this.getMaxItemUseDuration(itemStack), (EntityPlayer)player);
+						itemStack.damageItem(this.getMaxItemUseDuration(itemStack), (EntityPlayer)player	);
 					}
 				}
 			}catch(Throwable e){
