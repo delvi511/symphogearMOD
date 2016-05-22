@@ -16,7 +16,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class NehuItemArmor extends ItemArmor{
-	//防具のテクスチャ
+	// 防具のテクスチャ
 	public static final String HELMET_TEXTURE = "symphogear:neh_layer_1";
 	public static final String CHESTPLATE_TEXTURE = "symphogear:neh_layer_1";
 	public static final String LEGGINGS_TEXTURE = "symphogear:neh_layer_2";
@@ -24,12 +24,12 @@ public class NehuItemArmor extends ItemArmor{
 
 	/**
 	 * @constructor
-	 * @param type 
+	 * @param type
 	 */
 	public NehuItemArmor(int type){
 		super(SymphogearModCore.NEHUSHTAN, 0, type);
 		
-		//クリエイティブのタブを「戦闘」に指定
+		// クリエイティブのタブを「戦闘」に指定
 		this.setCreativeTab(CreativeTabs.tabCombat);
 	}
 	
@@ -42,6 +42,9 @@ public class NehuItemArmor extends ItemArmor{
 		}
 	}
 	
+	/**
+	 * 毎ティック鎧のインスタンスについて実行されるメソッド
+	 */
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){		
 		if (!world.isRemote && player.isSneaking() && SymphogearModCore.isPurgeKeyPressed()){
