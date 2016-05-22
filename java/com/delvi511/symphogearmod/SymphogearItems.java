@@ -33,16 +33,23 @@ public class SymphogearItems {
 	}
 	
 	/**
-	 *  獄鎌・イガリマのマテリアルを初期化します。
+	 * レシピを追加します
 	 */
-	public void initIgalimaMaterial(){
+	public void addRecipes(){
+		Recipes.registerIgalima(this.igalima);
+	}
+	
+	/**
+	 * 獄鎌・イガリマのマテリアルを初期化します。
+	 */
+	private void initIgalimaMaterial(){
 		this.igalimaMaterial = EnumHelper.addToolMaterial("IGALIMA", 0, 1590, 0.0F, 999995.9F, 35);
 	}
 	
 	/**
 	 *  獄鎌・イガリマを初期化します。
 	 */
-	public void initIgalima(){
+	private void initIgalima(){
 		// 剣として詳細設定を行う
 		this.igalima = new ItemSword(this.igalimaMaterial)
 			.setCreativeTab(CreativeTabs.tabCombat)
@@ -57,7 +64,7 @@ public class SymphogearItems {
 	/**
 	 *  ネフシュタンの鎧のマテリアルを初期化します。
 	 */
-	public void initNehushtanMaterial(){
+	private void initNehushtanMaterial(){
 		nehushtanMaterial = EnumHelper.addArmorMaterial("NEHUSHTAN", 42, new int [] { 3, 8, 6, 3 }, 35);
 		
 		//金床修復時の要求素材
@@ -67,7 +74,7 @@ public class SymphogearItems {
 	/**
 	 *  ネフシュタンの鎧を初期化します。
 	 */
-	public void initNehushtan(Config config){
+	private void initNehushtan(Config config){
 		// 詳細設定のリスト
 		// 頭、胴、脚、足の順かつ各要素は
 		// {言語が非対応の時に表示される名前, テクスチャの指定, ゲームレジストリへの登録名}
@@ -98,14 +105,14 @@ public class SymphogearItems {
 	/**
 	 * Red Saberのマテリアルを初期化します。
 	 */
-	public void initRedSaberMaterial(){
+	private void initRedSaberMaterial(){
 		this.redSaberMaterial = EnumHelper.addToolMaterial("SABER", 0, 730, 0.0F, 5.0F, 14);
 	}
 
 	/**
 	 * Red Saberを初期化します。
 	 */
-	public void initRedSaber(){
+	private void initRedSaber(){
 		// 剣として詳細設定を行う
 		this.redSaber = new ItemSword(this.redSaberMaterial)
 			.setCreativeTab(CreativeTabs.tabCombat)
