@@ -23,17 +23,22 @@ public class NehuItemArmor extends ItemArmor{
 	public static final String CHESTPLATE_TEXTURE = "symphogear:neh_layer_1";
 	public static final String LEGGINGS_TEXTURE = "symphogear:neh_layer_2";
 	public static final String BOOTS_TEXTURE = "symphogear:neh_layer_1";
+	
+	private Config config;
 
 	/**
 	 * @constructor
 	 * @param type
 	 */
-	public NehuItemArmor(int type){
-		super(SymphogearModCore.NEHUSHTAN, 0, type);
+	public NehuItemArmor(int type, ArmorMaterial nehushtanMaterial, Config config){
+		super(nehushtanMaterial, 0, type);
 		
 		// クリエイティブのタブを「戦闘」に指定
 		this.setCreativeTab(CreativeTabs.tabCombat);
+		
+		this.config = config;
 	}
+
 	
 	@SideOnly(Side.CLIENT)
 	public String getArmorTexture(ItemStack itemStack, Entity entity, int slot, String type){
@@ -45,11 +50,11 @@ public class NehuItemArmor extends ItemArmor{
 	}
 	
 	/**
-	 * 毎ティック鎧のインスタンスについて実行されるメソッド
+	 * 毎ティック鎧のインスタンスについて実行されます。
 	 */
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){		
-		if (!world.isRemote && player.isSneaking() && Keyboard.isKeyDown(Config.getPurgeKey())){
+		if (!world.isRemote && player.isSneaking() && Keyboard.isKeyDown(this.config.getPurgeKey())){
 			executeArmorPurge(world, player, itemStack);
 		}
 	}
