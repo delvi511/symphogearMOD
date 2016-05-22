@@ -2,6 +2,8 @@ package com.delvi511.symphogearmod;
 
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
@@ -47,7 +49,7 @@ public class NehuItemArmor extends ItemArmor{
 	 */
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){		
-		if (!world.isRemote && player.isSneaking() && SymphogearModCore.isPurgeKeyPressed()){
+		if (!world.isRemote && player.isSneaking() && Keyboard.isKeyDown(Config.getPurgeKey())){
 			executeArmorPurge(world, player, itemStack);
 		}
 	}
