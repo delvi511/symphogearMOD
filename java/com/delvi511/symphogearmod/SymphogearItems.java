@@ -16,6 +16,7 @@ public class SymphogearItems {
 	
 	public Item igalima;
 	public Item[] nehushtan;
+	public Item[] purgingNehushtan;
 	public Item redSaber;
 	
 	/**
@@ -28,8 +29,11 @@ public class SymphogearItems {
 		this.initNehushtanMaterial();
 		this.initNehushtan(config);
 		
+		this.initPurgingNehushtan();
+		
 		this.initRedSaberMaterial();
 		this.initRedSaber();
+		
 	}
 	
 	/**
@@ -90,7 +94,7 @@ public class SymphogearItems {
 		
 		for(int i = 0; i < 4; i++){
 			// 詳細設定
-			Item armorItem = new NehuItemArmor(i, this.nehushtanMaterial, config)
+			Item armorItem = new NehuItemArmor(this.nehushtanMaterial, i, config)
 				.setUnlocalizedName(armorSettings[i][0])
 				.setTextureName(armorSettings[i][1])
 				.setMaxStackSize(1);
@@ -100,6 +104,38 @@ public class SymphogearItems {
 			// ゲームに登録
 			GameRegistry.registerItem(armorItem, armorSettings[i][2]);
 		}
+	}
+	
+	/**
+	 * アーマーパージ最中のネフシュタンの鎧を初期化します。
+	 */
+	private void initPurgingNehushtan(){
+		// 詳細設定のリスト
+		// 頭、胴、脚、足の順かつ各要素は
+		// {言語が非対応の時に表示される名前, テクスチャの指定, ゲームレジストリへの登録名}
+		String armorSettings[][] = {
+			{"NehushtanPurgingHelmet",	"symphogear:neh_pg_helmet",		"NehushtanPurgingHelmet"	},
+			{"NehushtanPurgingChest",	"symphogear:neh_pg_chestplate",	"NehushtanPurgingChest"	},
+			{"NehushtanPurgingLeggins",	"symphogear:neh_pg_leggins",	"NehushtanPurgingLeggins"	},
+			{"NehushtanPurgingBoots",	"symphogear:neh_pg_boots",		"NehushtanPurgingBoots"	}
+		};
+
+		// 装備数は4つ（定数）とみなし、配列に防具として定義
+		this.purgingNehushtan = new Item[4];
+		
+		for(int i = 0; i < 4; i++){
+			// 詳細設定
+			Item armorItem = new NehuPurgingArmor(this.nehushtanMaterial, i)
+				.setUnlocalizedName(armorSettings[i][0])
+				.setTextureName(armorSettings[i][1])
+				.setMaxStackSize(1);
+
+			this.nehushtan[i] = armorItem;
+			
+			// ゲームに登録
+			GameRegistry.registerItem(armorItem, armorSettings[i][2]);
+		}
+		
 	}
 
 	/**
