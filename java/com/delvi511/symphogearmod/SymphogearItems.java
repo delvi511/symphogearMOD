@@ -75,7 +75,7 @@ public class SymphogearItems {
 	 * アーマーパージ中に使用されるマテリアルを初期化します。
 	 */
 	private void initPurgingMaterial() {
-		// TODO 要変更
+		// TODO 仕様に沿うように列挙内容を見直してください（耐久無限、損傷負荷、プレーヤーへのダメージを無効化）
 		this.purgingMaterial = EnumHelper.addArmorMaterial("PURGING_ARMOR", -1, new int [] { 3, 8, 6, 3 }, 0);
 		
 		return;

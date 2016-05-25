@@ -66,6 +66,7 @@ public class NehuPurgingEvent{
 		for(int i = 0; i < 4; i++){
 			this.armorPurgeUser.inventory.armorInventory[i] = new ItemStack(this.purgingNehushtan[i]);
 		}
+		// TODO 破壊音を鳴らす
 	}
 	
 	/**
@@ -75,7 +76,6 @@ public class NehuPurgingEvent{
 		for(int i = 0; i < 4; i++){
 			this.armorPurgeUser.inventory.armorInventory[i] = null;
 		}
-		// TODO 破壊音を鳴らす
 	}
 	
 	/**
