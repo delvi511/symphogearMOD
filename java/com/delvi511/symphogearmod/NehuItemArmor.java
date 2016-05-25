@@ -19,13 +19,16 @@ public class NehuItemArmor extends ItemArmor{
 	public static final String BOOTS_TEXTURE = "symphogear:neh_layer_1";
 	
 	private Config config;
+	private ArmorMaterial purgingMaterial;
 
 	/**
 	 * @constructor
 	 * @param type
 	 */
-	public NehuItemArmor(ArmorMaterial nehushtanMaterial, int type, Config config){
+	public NehuItemArmor(ArmorMaterial nehushtanMaterial, ArmorMaterial purgingMaterial, int type, Config config){
 		super(nehushtanMaterial, 0, type);
+		
+		this.purgingMaterial = purgingMaterial;
 		
 		// クリエイティブのタブを「戦闘」に指定
 		this.setCreativeTab(CreativeTabs.tabCombat);
@@ -49,7 +52,7 @@ public class NehuItemArmor extends ItemArmor{
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){		
 		if (!world.isRemote && player.isSneaking() && Keyboard.isKeyDown(this.config.getPurgeKey())){
-			NehuPurgingEvent purge = new NehuPurgingEvent(player, 50);
+			NehuPurgingEvent purge = new NehuPurgingEvent(player, purgingMaterial, 50);
 			if(purge.isExecutable()){
 				purge.execute();
 			}
