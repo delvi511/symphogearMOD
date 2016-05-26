@@ -1,5 +1,6 @@
 package com.delvi511.symphogearmod;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,7 +9,6 @@ import net.minecraft.item.ItemStack;
 
 public class NehuPurgingEvent{
 	private EntityPlayer armorPurgeUser;
-	private boolean isPurgeActive;
 	
 	private int remainingPurgeTick;
 	
@@ -17,7 +17,6 @@ public class NehuPurgingEvent{
 	public NehuPurgingEvent(EntityPlayer player, ArmorMaterial purgingMaterial, int maxPurgeTick){
 		this.armorPurgeUser = player;
 		this.remainingPurgeTick = maxPurgeTick;
-		this.isPurgeActive = false;
 		
 		this.purgingNehushtan = new NehuPurgingArmor[4];
 		for(int i = 0; i < 4; i++){
@@ -25,22 +24,14 @@ public class NehuPurgingEvent{
 		}
 	}
 	
-	/*
-	 * TODO by Kory33
-	 * 
-	 * onUpdateがisPurgeActiveがtrueになったら毎ティック呼ばれるようにする。
-	 * 各メソッドの実装
-	 */
-	
 	@SubscribeEvent
-	public void onUpdate(TickEvent.WorldTickEvent event){
-		if(this.isPurgeActive){
-			if(this.remainingPurgeTick > 0){
-				this.launchArmorProjectile();
-				this.remainingPurgeTick--;
-			}else{
-				this.breakAllArmors();
-			}
+	public void onUpdate(TickEvent.PlayerTickEvent event){
+		if(this.remainingPurgeTick > 0){
+			this.launchArmorProjectile();
+			this.remainingPurgeTick--;
+		}else{
+			FMLCommonHandler.instance().bus().unregister(this);
+			this.breakAllArmors();
 		}
 	}
 	
@@ -49,8 +40,9 @@ public class NehuPurgingEvent{
 	 * @return 実行可能かの真偽値
 	 */
 	public boolean isExecutable(){
-		/*true if the player is wearing all the Nehushtan armors*/
+		/*プレーヤーがネフシュタンの鎧のセットを着ていれば真*/
 		boolean isNehushtanArmor = true;
+		
 		return isNehushtanArmor;
 	}
 
@@ -58,8 +50,8 @@ public class NehuPurgingEvent{
 	 * アーマーパージを実行します
 	 */
 	public void execute(){
-		this.isPurgeActive = true;
 		this.replacePlayerArmors();
+		FMLCommonHandler.instance().bus().register(this);
 	}
 	
 	/**
