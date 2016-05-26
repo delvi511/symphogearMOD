@@ -14,6 +14,7 @@ public class NehuPurgingArmor extends ItemArmor{
 
 	public NehuPurgingArmor(ArmorMaterial material, int type){
 		super(material, 0, type);
+		this.setCreativeTab(null);
 	}
 	
 	/*

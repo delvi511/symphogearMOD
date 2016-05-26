@@ -75,8 +75,8 @@ public class SymphogearItems {
 	 * アーマーパージ中に使用されるマテリアルを初期化します。
 	 */
 	private void initPurgingMaterial() {
-		// TODO 仕様に沿うように列挙内容を見直してください（耐久無限、損傷負荷、プレーヤーへのダメージを無効化）
-		this.purgingMaterial = EnumHelper.addArmorMaterial("PURGING_ARMOR", -1, new int [] { 3, 8, 6, 3 }, 0);
+		// TODO 仕様に沿うように列挙内容を見直してください
+		this.purgingMaterial = EnumHelper.addArmorMaterial("PURGING_ARMOR", -1 & 0x7fffffff, new int [] { 3, 8, 6, 3 }, 0);
 		
 		return;
 	}
@@ -101,21 +101,22 @@ public class SymphogearItems {
 		// 頭、胴、脚、足の順かつ各要素は
 		// {言語が非対応の時に表示される名前, テクスチャの指定, ゲームレジストリへの登録名}
 		String armorSettings[][] = {
-			{"NehushtanHelmet",		"symphogear:neh_helmet",	"NehushtanHelmet"	},
-			{"NehushtanChest",		"symphogear:neh_chestplate","NehushtanChest"	},
-			{"NehushtanLeggins",	"symphogear:neh_leggins",	"NehushtanLeggins"	},
-			{"NehushtanBoots",		"symphogear:neh_boots",		"NehushtanBoots"	}
+			{"Nehushtan Helmet",		"symphogear:neh_helmet",	"NehushtanHelmet"	},
+			{"Nehushtan Chest",		"symphogear:neh_chestplate","NehushtanChest"	},
+			{"Nehushtan Leggins",	"symphogear:neh_leggins",	"NehushtanLeggins"	},
+			{"Nehushtan Boots",		"symphogear:neh_boots",		"NehushtanBoots"	}
 		};
 
 		String purgingArmorSettings[][] = {
-			{"NehushtanPurgingHelmet",	"symphogear:neh_pg_helmet",		"NehushtanPurgingHelmet"	},
-			{"NehushtanPurgingChest",	"symphogear:neh_pg_chestplate",	"NehushtanPurgingChest"	},
-			{"NehushtanPurgingLeggins",	"symphogear:neh_pg_leggins",	"NehushtanPurgingLeggins"	},
-			{"NehushtanPurgingBoots",	"symphogear:neh_pg_boots",		"NehushtanPurgingBoots"	}
+			{"Nehushtan Purging Helmet",	"symphogear:neh_pg_helmet",		"NehushtanPurgingHelmet"	},
+			{"Nehushtan Purging Chest",	"symphogear:neh_pg_chestplate",	"NehushtanPurgingChest"	},
+			{"Nehushtan Purging Leggins",	"symphogear:neh_pg_leggins",	"NehushtanPurgingLeggins"	},
+			{"Nehushtan Purging Boots",	"symphogear:neh_pg_boots",		"NehushtanPurgingBoots"	}
 		};
 
 		// 装備数は4つ（定数）とみなし、配列に防具として定義
 		this.nehushtan = new Item[4];
+		this.purgingNehushtan = new Item[4];
 		
 		for(int i = 0; i < 4; i++){
 			// 詳細設定
@@ -134,7 +135,7 @@ public class SymphogearItems {
 			
 			// ゲームに登録
 			GameRegistry.registerItem(this.nehushtan[i], armorSettings[i][2]);
-			GameRegistry.registerItem(this.purgingNehushtan[i], armorSettings[i][2]);
+			GameRegistry.registerItem(this.purgingNehushtan[i], purgingArmorSettings[i][2]);
 		}
 		
 		return;

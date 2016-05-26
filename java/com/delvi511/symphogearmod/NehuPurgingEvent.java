@@ -19,6 +19,7 @@ public class NehuPurgingEvent{
 		this.remainingPurgeTick = maxPurgeTick;
 		this.isPurgeActive = false;
 		
+		this.purgingNehushtan = new NehuPurgingArmor[4];
 		for(int i = 0; i < 4; i++){
 			this.purgingNehushtan[i] = new NehuPurgingArmor(purgingMaterial, i);
 		}
@@ -48,7 +49,9 @@ public class NehuPurgingEvent{
 	 * @return 実行可能かの真偽値
 	 */
 	public boolean isExecutable(){
-		return false;
+		/*true if the player is wearing all the Nehushtan armors*/
+		boolean isNehushtanArmor = true;
+		return isNehushtanArmor;
 	}
 
 	/**
