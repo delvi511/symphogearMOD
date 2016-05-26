@@ -51,8 +51,8 @@ public class NehuItemArmor extends ItemArmor{
 	 */
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){		
-		if (!world.isRemote && player.isSneaking() && Keyboard.isKeyDown(this.config.getPurgeKey())){
-			NehuPurgingEvent purge = new NehuPurgingEvent(player, purgingMaterial, 200);
+		if (!world.isRemote && player.isSneaking() && Keyboard.isKeyDown(this.config.getPurgeKey()) && this.armorType == 1){
+			NehuPurgingEvent purge = new NehuPurgingEvent(player, purgingMaterial, 60);
 			if(purge.isExecutable()){
 				purge.execute();
 			}
