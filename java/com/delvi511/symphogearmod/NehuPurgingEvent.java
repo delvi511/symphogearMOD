@@ -1,5 +1,6 @@
 package com.delvi511.symphogearmod;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.entity.player.EntityPlayer;
@@ -7,17 +8,18 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 
 public class NehuPurgingEvent{
+	private static final int armorProjectilePerTick = 4;
+	private static final int maxPurgeTick = 300;
+	
 	private EntityPlayer armorPurgeUser;
-	private boolean isPurgeActive;
 	
 	private int remainingPurgeTick;
 	
 	private NehuPurgingArmor[] purgingNehushtan;
 	
-	public NehuPurgingEvent(EntityPlayer player, ArmorMaterial purgingMaterial, int maxPurgeTick){
+	public NehuPurgingEvent(EntityPlayer player, ArmorMaterial purgingMaterial){
 		this.armorPurgeUser = player;
 		this.remainingPurgeTick = maxPurgeTick;
-		this.isPurgeActive = false;
 		
 		this.purgingNehushtan = new NehuPurgingArmor[4];
 		for(int i = 0; i < 4; i++){
@@ -25,22 +27,14 @@ public class NehuPurgingEvent{
 		}
 	}
 	
-	/*
-	 * TODO by Kory33
-	 * 
-	 * onUpdateがisPurgeActiveがtrueになったら毎ティック呼ばれるようにする。
-	 * 各メソッドの実装
-	 */
-	
 	@SubscribeEvent
 	public void onUpdate(TickEvent.WorldTickEvent event){
-		if(this.isPurgeActive){
-			if(this.remainingPurgeTick > 0){
-				this.launchArmorProjectile();
-				this.remainingPurgeTick--;
-			}else{
-				this.breakAllArmors();
-			}
+		if(this.remainingPurgeTick > 0){
+			this.launchArmorProjectile();
+			this.remainingPurgeTick--;
+		}else{
+			FMLCommonHandler.instance().bus().unregister(this);
+			this.breakAllArmors();
 		}
 	}
 	
@@ -49,8 +43,9 @@ public class NehuPurgingEvent{
 	 * @return 実行可能かの真偽値
 	 */
 	public boolean isExecutable(){
-		/*true if the player is wearing all the Nehushtan armors*/
+		/*プレーヤーがネフシュタンの鎧のセットを着ていれば真*/
 		boolean isNehushtanArmor = true;
+		
 		return isNehushtanArmor;
 	}
 
@@ -58,8 +53,8 @@ public class NehuPurgingEvent{
 	 * アーマーパージを実行します
 	 */
 	public void execute(){
-		this.isPurgeActive = true;
 		this.replacePlayerArmors();
+		FMLCommonHandler.instance().bus().register(this);
 	}
 	
 	/**
@@ -79,12 +74,27 @@ public class NehuPurgingEvent{
 		for(int i = 0; i < 4; i++){
 			this.armorPurgeUser.inventory.armorInventory[i] = null;
 		}
-	}
+	}	
 	
 	/**
 	 * プレーヤーから防具の破片エンティティを発射します。
 	 */
 	private void launchArmorProjectile(){
-		// TODO
+		for(int i = 0; i < armorProjectilePerTick; i++){
+			// ピッチを少し上向きに、ヨーは完全にランダムに角度を設定
+			float projectilePitch = ((float)Math.random() + 0.02F) * 30.0F;
+			float projectileYaw   = ((float)Math.random() - 0.5F) * 360.0F;
+			
+			// プレーヤーの足元からの高さ
+			double yOffset = Math.random() * 2.0D;
+			
+			// ティック当たりの移動距離
+			double motionPerTick = Math.random() + 2.0D;
+			
+			// 飛翔体をプレーヤーの足から頭の間のどこかに設置
+			ArmorProjectile armorProjectile = new ArmorProjectile(this.armorPurgeUser, yOffset, projectilePitch, projectileYaw, motionPerTick);
+			
+			this.armorPurgeUser.getEntityWorld().spawnEntityInWorld(armorProjectile);
+		}
 	}
 }
