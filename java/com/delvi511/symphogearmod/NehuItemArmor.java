@@ -50,9 +50,9 @@ public class NehuItemArmor extends ItemArmor{
 	 * 毎ティック鎧のインスタンスについて実行されます。
 	 */
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){		
+	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){
 		if (!world.isRemote && player.isSneaking() && Keyboard.isKeyDown(this.config.getPurgeKey()) && this.armorType == 1){
-			NehuPurgingEvent purge = new NehuPurgingEvent(player, purgingMaterial, 60);
+			NehuPurgingEvent purge = new NehuPurgingEvent(player, purgingMaterial);
 			if(purge.isExecutable()){
 				purge.execute();
 			}

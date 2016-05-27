@@ -8,13 +8,16 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 
 public class NehuPurgingEvent{
+	private static final int armorProjectilePerTick = 4;
+	private static final int maxPurgeTick = 300;
+	
 	private EntityPlayer armorPurgeUser;
 	
 	private int remainingPurgeTick;
 	
 	private NehuPurgingArmor[] purgingNehushtan;
 	
-	public NehuPurgingEvent(EntityPlayer player, ArmorMaterial purgingMaterial, int maxPurgeTick){
+	public NehuPurgingEvent(EntityPlayer player, ArmorMaterial purgingMaterial){
 		this.armorPurgeUser = player;
 		this.remainingPurgeTick = maxPurgeTick;
 		
@@ -25,7 +28,7 @@ public class NehuPurgingEvent{
 	}
 	
 	@SubscribeEvent
-	public void onUpdate(TickEvent.PlayerTickEvent event){
+	public void onUpdate(TickEvent.WorldTickEvent event){
 		if(this.remainingPurgeTick > 0){
 			this.launchArmorProjectile();
 			this.remainingPurgeTick--;
@@ -71,12 +74,27 @@ public class NehuPurgingEvent{
 		for(int i = 0; i < 4; i++){
 			this.armorPurgeUser.inventory.armorInventory[i] = null;
 		}
-	}
+	}	
 	
 	/**
 	 * プレーヤーから防具の破片エンティティを発射します。
 	 */
 	private void launchArmorProjectile(){
-		// TODO
+		for(int i = 0; i < armorProjectilePerTick; i++){
+			// ピッチを少し上向きに、ヨーは完全にランダムに角度を設定
+			float projectilePitch = ((float)Math.random() + 0.02F) * 30.0F;
+			float projectileYaw   = ((float)Math.random() - 0.5F) * 360.0F;
+			
+			// プレーヤーの足元からの高さ
+			double yOffset = Math.random() * 2.0D;
+			
+			// ティック当たりの移動距離
+			double motionPerTick = Math.random() + 2.0D;
+			
+			// 飛翔体をプレーヤーの足から頭の間のどこかに設置
+			ArmorProjectile armorProjectile = new ArmorProjectile(this.armorPurgeUser, yOffset, projectilePitch, projectileYaw, motionPerTick);
+			
+			this.armorPurgeUser.getEntityWorld().spawnEntityInWorld(armorProjectile);
+		}
 	}
 }
