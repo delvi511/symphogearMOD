@@ -101,17 +101,17 @@ public class SymphogearItems {
 		// 頭、胴、脚、足の順かつ各要素は
 		// {言語が非対応の時に表示される名前, テクスチャの指定, ゲームレジストリへの登録名}
 		String armorSettings[][] = {
-			{"Nehushtan Helmet",		"symphogear:neh_helmet",	"NehushtanHelmet"	},
-			{"Nehushtan Chest",		"symphogear:neh_chestplate","NehushtanChest"	},
-			{"Nehushtan Leggins",	"symphogear:neh_leggins",	"NehushtanLeggins"	},
-			{"Nehushtan Boots",		"symphogear:neh_boots",		"NehushtanBoots"	}
+			{"NehushtanHelmet",	"symphogear:neh_helmet",	"NehushtanHelmet"	},
+			{"NehushtanChest",		"symphogear:neh_chestplate","NehushtanChest"	},
+			{"NehushtanLeggins",	"symphogear:neh_leggins",	"NehushtanLeggins"	},
+			{"NehushtanBoots",		"symphogear:neh_boots",		"NehushtanBoots"	}
 		};
 
 		String purgingArmorSettings[][] = {
-			{"Nehushtan Purging Helmet",	"symphogear:neh_pg_helmet",		"NehushtanPurgingHelmet"	},
-			{"Nehushtan Purging Chest",	"symphogear:neh_pg_chestplate",	"NehushtanPurgingChest"	},
-			{"Nehushtan Purging Leggins",	"symphogear:neh_pg_leggins",	"NehushtanPurgingLeggins"	},
-			{"Nehushtan Purging Boots",	"symphogear:neh_pg_boots",		"NehushtanPurgingBoots"	}
+			{"NehushtanPurgingHelmet",	"symphogear:neh_pg_helmet",		"NehushtanPurgingHelmet"	},
+			{"NehushtanPurgingChest",		"symphogear:neh_pg_chestplate",	"NehushtanPurgingChest"	},
+			{"NehushtanPurgingLeggins",	"symphogear:neh_pg_leggins",	"NehushtanPurgingLeggins"	},
+			{"NehushtanPurgingBoots",		"symphogear:neh_pg_boots",		"NehushtanPurgingBoots"	}
 		};
 
 		// 装備数は4つ（定数）とみなし、配列に防具として定義
