@@ -81,8 +81,8 @@ public class NehuPurgingEvent{
 	 */
 	private void launchArmorProjectile(){
 		for(int i = 0; i < armorProjectilePerTick; i++){
-			// ピッチを少し上向きに、ヨーは完全にランダムに角度を設定
-			float projectilePitch = ((float)Math.random() + 0.02F) * 30.0F;
+			// ピッチをxz平面から[0,20)°に、ヨーは[-180, 180)°に角度を設定
+			float projectilePitch = 90.0F - (float)Math.random() * 20.0F;
 			float projectileYaw   = ((float)Math.random() - 0.5F) * 360.0F;
 			
 			// プレーヤーの足元からの高さ
@@ -94,6 +94,7 @@ public class NehuPurgingEvent{
 			// 飛翔体をプレーヤーの足から頭の間のどこかに設置
 			ArmorProjectile armorProjectile = new ArmorProjectile(this.armorPurgeUser, yOffset, projectilePitch, projectileYaw, motionPerTick);
 			
+			// 飛翔体をスポーンさせる
 			this.armorPurgeUser.getEntityWorld().spawnEntityInWorld(armorProjectile);
 		}
 	}

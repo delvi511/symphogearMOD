@@ -30,7 +30,7 @@ public class SymphogearItems {
 		this.initPurgingMaterial();
 
 		this.initNehushtanMaterial();
-		this.initNehushtan(config);
+		this.initNehushtan();
 				
 		this.initRedSaberMaterial();
 		this.initRedSaber();
@@ -96,7 +96,7 @@ public class SymphogearItems {
 	/**
 	 *  ネフシュタンの鎧を初期化します。
 	 */
-	private void initNehushtan(Config config){
+	private void initNehushtan(){
 		// 詳細設定のリスト
 		// 頭、胴、脚、足の順かつ各要素は
 		// {言語が非対応の時に表示される名前, テクスチャの指定, ゲームレジストリへの登録名}
@@ -120,7 +120,7 @@ public class SymphogearItems {
 		
 		for(int i = 0; i < 4; i++){
 			// 詳細設定
-			Item nehuArmor = new NehuItemArmor(this.nehushtanMaterial, this.nehushtanMaterial, i, config)
+			Item nehuArmor = new NehuItemArmor(this.nehushtanMaterial, this.nehushtanMaterial, i)
 				.setUnlocalizedName(armorSettings[i][0])
 				.setTextureName(armorSettings[i][1])
 				.setMaxStackSize(1);
