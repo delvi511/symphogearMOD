@@ -18,9 +18,9 @@ public class ArmorProjectile extends EntityArrow {
 	}
 	
 	private void setMotionsFromAngle(){
-		float xzFactor = (float)Math.sin(this.rotationPitch / 180 * Math.PI);
-		this.prevPosX = this.motionX = Math.sin(this.rotationYaw / 180 * Math.PI)   * this.motionPerTick * xzFactor;
-		this.prevPosZ = this.motionZ = -Math.cos(this.rotationYaw / 180 * Math.PI)  * this.motionPerTick * xzFactor;
-		this.prevPosY = this.motionY = Math.cos(this.rotationPitch / 180 * Math.PI) * this.motionPerTick;
+		float xzFactor = (float)Math.cos(this.rotationPitch / 180 * Math.PI);
+		this.motionX = Math.sin(this.rotationYaw / 180 * Math.PI)   * this.motionPerTick * xzFactor;
+		this.motionZ = -Math.cos(this.rotationYaw / 180 * Math.PI)  * this.motionPerTick * xzFactor;
+		this.motionY = Math.sin(this.rotationPitch / 180 * Math.PI) * this.motionPerTick;
 	}
 }

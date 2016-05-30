@@ -81,9 +81,9 @@ public class NehuPurgingEvent{
 	 */
 	private void launchArmorProjectile(){
 		for(int i = 0; i < armorProjectilePerTick; i++){
-			// ピッチをxz平面から[0,20)°に、ヨーは[-180, 180)°に角度を設定
-			float projectilePitch = 90.0F - (float)Math.random() * 20.0F;
-			float projectileYaw   = ((float)Math.random() - 0.5F) * 360.0F;
+			// ピッチをxz平面から[-5,20)°に、ヨーは[-180, 180)°に角度を設定
+			float projectilePitch = (float)Math.random() * 25.0F  - 5.0F;
+			float projectileYaw   = (float)Math.random() * 360.0F - 180.0F;
 			
 			// プレーヤーの足元からの高さ
 			double yOffset = Math.random() * 2.0D;
