@@ -8,7 +8,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.common.config.Configuration;
 
 public class Config {
-	private static int purgeKeyBinding;
+	private static int purgeKeyBinding = Keyboard.KEY_B;
+
 	private FMLPreInitializationEvent event;
 	
 	public Config(FMLPreInitializationEvent event){
@@ -19,23 +20,24 @@ public class Config {
 		Configuration config = new Configuration(this.event.getSuggestedConfigurationFile());
 
 		try{
+			config.load();
+
 			// Bキーをデフォルトでアーマーパージのキーとして設定
 			purgeKeyBinding = config.get(Configuration.CATEGORY_GENERAL, "PurgeKeyBinding", Keyboard.KEY_B).getInt();
 		}catch (Exception e){
-			FMLLog.log(Level.FATAL, e, "Symphogear-MOD ERROR: failed to configure keybind");
+			FMLLog.log(Level.FATAL, e, "Symphogear-MOD ERROR: failed to load configuration");
 		}finally{
 			config.save();
 		}
 
 		return;
-
 	}
 
 	/**
 	 * アーマーパージの設定キーを取得します。
 	 * @return キーを表す整数
 	 */
-	public int getPurgeKey(){
+	public static int getPurgeKey(){
 		return purgeKeyBinding;
 	}
 }
