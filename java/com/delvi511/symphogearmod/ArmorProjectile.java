@@ -26,7 +26,7 @@ public class ArmorProjectile extends Entity {
 	/** ダメージ量 */
 	private static final float DAMAGE_AMT = 15.0F;
 	/** ノックバック量 */
-	private static final double KNOCKBACK_STRENGTH = 1.0D;	
+	private static final double KNOCKBACK_STRENGTH = 0.2D;	
 	
 	/**
 	 * アーマーパージの飛翔体エンティティを生成します。
