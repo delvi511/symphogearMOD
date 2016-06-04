@@ -36,6 +36,7 @@ public class AProjectileRenderer extends Render{
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
 
+		this.renderTip(x, y, z);
 		
 		
 		// 終了処理
@@ -44,9 +45,9 @@ public class AProjectileRenderer extends Render{
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glPopMatrix();
 	}
-
+	
 	@Override
-	protected ResourceLocation getEntityTexture(Entity p_110775_1_) {
+	public ResourceLocation getEntityTexture(Entity p_110775_1_) {
 		return null;
 	}
 
@@ -56,5 +57,9 @@ public class AProjectileRenderer extends Render{
 	@Override
 	public void doRender(Entity entity, double x, double y, double z, float yaw, float renderTick){
 		this.doRender((ArmorProjectile)entity, x, y, z, yaw, renderTick);
+	}
+	
+	public void renderTip(double x, double y, double z){
+		
 	}
 }

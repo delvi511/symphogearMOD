@@ -96,6 +96,8 @@ public class ArmorProjectile extends Entity {
 			return;
 		}
 
+		this.recordPosition();
+		
 		++this.ticksAlive;
 		
 		Vec3 posVec = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
@@ -149,7 +151,12 @@ public class ArmorProjectile extends Entity {
 		this.motionY -= DOWNWARD_ACCEL;
 		
 		this.setPosition(this.posX, this.posY, this.posZ);
-		
+	}
+
+	/**
+	 * エンティティ位置の記録
+	 */
+	private void recordPosition() {
 		// 現在位置を記録
 		this.positionRecord[this.posRecIndex] = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
 		
@@ -157,7 +164,7 @@ public class ArmorProjectile extends Entity {
 		this.posRecIndex++;
 		if(this.posRecIndex == POSITION_RECORD_TICK){
 			this.posRecIndex = 0;
-		}
+		}		
 	}
 
 	/**
@@ -176,6 +183,10 @@ public class ArmorProjectile extends Entity {
 		}
 	}
 
+	/**
+	 * エンティティにノックバックを与えます。
+	 * @param entityHit ノックバックを与える対象のエンティティ
+	 */
 	private void causeKnockbackOnEntity(Entity entityHit) {
 		double v = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY);
 		entityHit.addVelocity(this.motionX * KNOCKBACK_STRENGTH / v, 0.1D, this.motionY * KNOCKBACK_STRENGTH / v);
@@ -191,9 +202,9 @@ public class ArmorProjectile extends Entity {
 	protected void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {}
 	
 	/**
-	 * tickティック前のエンティティの位置を取得します。
+	 * {tick}ティック前のエンティティの位置を取得します。
 	 * @param tick 現ティックからのオフセット
-	 * @return tick前のエンティティの位置。データが無効な時はnullを返す。
+	 * @return {tick}ティック前のエンティティの位置。データが無効な時はnullを返す。
 	 */
 	public Vec3 getCoordBefore(int tick){		
 		if(tick >= POSITION_RECORD_TICK){
