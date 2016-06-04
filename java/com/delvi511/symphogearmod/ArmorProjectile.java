@@ -68,7 +68,8 @@ public class ArmorProjectile extends Entity {
 		
 		// 位置記録情報を初期化
 		this.positionRecord = new Vec3[POSITION_RECORD_TICK];
-		for(int i = POSITION_RECORD_TICK; i >= 0; i--){
+		for(int i = 0; i < POSITION_RECORD_TICK; i++){
+			// 初期値で埋める
 			this.positionRecord[i] = Vec3.createVectorHelper(-1.0D, -1.0D, -1.0D);
 		}
 		this.posRecIndex = 0;
