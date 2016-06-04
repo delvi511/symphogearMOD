@@ -26,7 +26,7 @@ public class AProjectileRenderer extends Render{
 	 * @param renderTick
 	 */
 	public void doRender(ArmorProjectile entity, double x, double y, double z, float yaw, float renderTick) {
-		// 開始処理
+		// レンダー開始処理
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
