@@ -26,7 +26,7 @@ public class ArmorProjectile extends Entity {
 	private int posRecIndex;
 	
 	/** 位置情報を保存するティック数*/
-	private static final int POSITION_RECORD_TICK = 5;
+	public static final int POSITION_RECORD_TICK = 5;
 
 	/** 落下加速度 (m*(tick)^(-2)) */
 	private static final double DOWNWARD_ACCEL = 0.00275D;
@@ -66,6 +66,8 @@ public class ArmorProjectile extends Entity {
 		this.ticksAlive = 0;
 		this.setSize(.1F, .1F);
 		
+		// 位置記録情報を初期化
+		this.positionRecord = new Vec3[POSITION_RECORD_TICK];
 		for(int i = POSITION_RECORD_TICK; i >= 0; i--){
 			this.positionRecord[i] = Vec3.createVectorHelper(-1.0D, -1.0D, -1.0D);
 		}
