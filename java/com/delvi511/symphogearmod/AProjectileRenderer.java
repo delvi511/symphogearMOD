@@ -1,13 +1,16 @@
 package com.delvi511.symphogearmod;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
 public class AProjectileRenderer extends Render{	
+	/** Tessellatorのインスタンス */
+	private static final Tessellator t = Tessellator.instance;
+	
 	/**
 	 * @constructor
 	 */
@@ -28,14 +31,17 @@ public class AProjectileRenderer extends Render{
 	public void doRender(ArmorProjectile entity, double x, double y, double z, float yaw, float renderTick) {
 		// レンダー開始処理
 		GL11.glPushMatrix();
+		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
 
-		GL11.glColor4f(2.0F, .5F, 1.5F, .9F);
-
+		
+		
 		// 終了処理
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glPopMatrix();
 	}
 

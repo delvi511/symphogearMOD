@@ -21,7 +21,7 @@ public class ArmorProjectile extends Entity {
 	/** エンティティが存在したティック数 */
 	private int ticksAlive;
 
-	/** 落下加速度 (m*t^(-2)) */
+	/** 落下加速度 (m*(tick)^(-2)) */
 	private static final double DOWNWARD_ACCEL = 0.00275D;
 	/** ダメージ量 */
 	private static final float DAMAGE_AMT = 15.0F;
