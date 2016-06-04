@@ -26,7 +26,7 @@ public class ArmorProjectile extends Entity {
 	private int posRecIndex;
 	
 	/** 位置情報を保存するティック数*/
-	public static final int POSITION_RECORD_TICK = 5;
+	public static final int POSITION_RECORD_TICK = 4;
 
 	/** 落下加速度 (m*(tick)^(-2)) */
 	private static final double DOWNWARD_ACCEL = 0.00275D;
