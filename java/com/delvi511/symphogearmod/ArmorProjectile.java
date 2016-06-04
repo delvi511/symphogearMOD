@@ -20,6 +20,13 @@ public class ArmorProjectile extends Entity {
 
 	/** エンティティが存在したティック数 */
 	private int ticksAlive;
+	
+	/** 数ティック間の位置情報*/
+	private Vec3 positionRecord[];
+	private int posRecIndex;
+	
+	/** 位置情報を保存するティック数*/
+	private static final int POSITION_RECORD_TICK = 5;
 
 	/** 落下加速度 (m*(tick)^(-2)) */
 	private static final double DOWNWARD_ACCEL = 0.00275D;
@@ -48,9 +55,9 @@ public class ArmorProjectile extends Entity {
 		this.motionPerTick = speed;
 
 		// 角度をセット
-		this.rotationPitch     = pitch;
+		this.rotationPitch	 = pitch;
 		this.prevRotationPitch = this.rotationPitch;		
-		this.rotationYaw     = yaw;
+		this.rotationYaw	 = yaw;
 		this.prevRotationYaw = this.rotationYaw;
 
 		// 速度を初期化
@@ -58,6 +65,11 @@ public class ArmorProjectile extends Entity {
 		
 		this.ticksAlive = 0;
 		this.setSize(.1F, .1F);
+		
+		for(int i = POSITION_RECORD_TICK; i >= 0; i--){
+			this.positionRecord[i] = Vec3.createVectorHelper(-1.0D, -1.0D, -1.0D);
+		}
+		this.posRecIndex = 0;
 	}
 	
 	/**
@@ -129,13 +141,23 @@ public class ArmorProjectile extends Entity {
 			this.onImpact(movingObjectPosition);
 		}
 
-        this.posX += this.motionX;
-        this.posY += this.motionY;
-        this.posZ += this.motionZ;
-        
-        this.motionY -= DOWNWARD_ACCEL;
-        
-        this.setPosition(this.posX, this.posY, this.posZ);
+		// 位置の更新
+		this.posX += this.motionX;
+		this.posY += this.motionY;
+		this.posZ += this.motionZ;
+		
+		this.motionY -= DOWNWARD_ACCEL;
+		
+		this.setPosition(this.posX, this.posY, this.posZ);
+		
+		// 現在位置を記録
+		this.positionRecord[this.posRecIndex] = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
+		
+		// インデックスの更新
+		this.posRecIndex++;
+		if(this.posRecIndex == POSITION_RECORD_TICK){
+			this.posRecIndex = 0;
+		}
 	}
 
 	/**
@@ -167,4 +189,22 @@ public class ArmorProjectile extends Entity {
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {}
+	
+	/**
+	 * tickティック前のエンティティの位置を取得します。
+	 * @param tick 現ティックからのオフセット
+	 * @return tick前のエンティティの位置。データが無効な時はnullを返す。
+	 */
+	public Vec3 getCoordBefore(int tick){		
+		if(tick >= POSITION_RECORD_TICK){
+			return null;
+		}
+		
+		// データの取得
+		int index = this.posRecIndex - tick;
+		Vec3 posRec = this.positionRecord[index + (index > 0 ? 0: POSITION_RECORD_TICK)];
+		
+		// データが初期値ならばnullを返す。
+		return posRec.yCoord == -1.0D ? null: posRec;
+	}
 }
