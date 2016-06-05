@@ -9,7 +9,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+
+import com.delvi511.symphogearmod.Vec3;
 
 public class ArmorProjectile extends Entity {
 	/**　パージ使用者　*/
