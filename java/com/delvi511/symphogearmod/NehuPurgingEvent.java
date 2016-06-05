@@ -46,6 +46,8 @@ public class NehuPurgingEvent{
 		/*プレーヤーがネフシュタンの鎧のセットを着ていれば真*/
 		boolean isNehushtanArmor = true;
 		
+		//TODO
+		
 		return isNehushtanArmor;
 	}
 
