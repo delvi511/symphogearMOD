@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import scala.unchecked;
 import scala.collection.mutable.ArrayBuilder.ofBoolean;
 
 @SideOnly(value=Side.CLIENT)
@@ -136,11 +137,18 @@ public class AProjectileRenderer extends Render{
 			endVertices[0] = Vec3.createVectorHelper(end.xCoord, end.yCoord, end.zCoord);
 		}else{
 			endVertices = this.calculateTrailBeginVertex(trail, nextEnd.subtract(begin), begin, trailEndRadius);
+
+			tessellator.startDrawing(GL11.GL_TRIANGLE_STRIP);
+			for(int i = 0; i < TRAIL_VERTICES; i++){
+				tessellator.addVertex(beginVertices[i].xCoord, beginVertices[i].yCoord, beginVertices[i].zCoord);
+				tessellator.addVertex(endVertices[i].xCoord, endVertices[i].yCoord, endVertices[i].zCoord);
+			}
 			
+			tessellator.addVertex(beginVertices[0].xCoord, beginVertices[0].yCoord, beginVertices[0].zCoord);
 		}
 		
 		tessellator.draw();
-		return endVertices;
+		return endVertices.clone();
 	}
 	
 	/**
@@ -169,7 +177,7 @@ public class AProjectileRenderer extends Render{
 			// 前回の軌跡との平均ベクトルと逆方向かつ開始点から軌跡の円柱に向かうベクトル
 			Vec3 m = trail.normalize().add(prevTrail.normalize()).normalize().multiply(-1.0D);
 			Vec3 c = horVec.crossProduct(trail).normalize();
-			beginParpendVec = m.multiply(trailBeginRadius * m.crossProduct(c).lengthVector() / m.dotProduct(c));			
+			beginParpendVec = m.multiply(1.0D / m.dotProduct(c));
 		}else{
 			beginParpendVec = horVec.crossProduct(trail).normalize();			
 		}
