@@ -1,7 +1,5 @@
 package com.delvi511.symphogearmod;
 
-import javax.vecmath.Vector4d;
-
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.relauncher.Side;
@@ -11,8 +9,6 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import scala.unchecked;
-import scala.collection.mutable.ArrayBuilder.ofBoolean;
 
 @SideOnly(value=Side.CLIENT)
 public class AProjectileRenderer extends Render{
