@@ -1,14 +1,13 @@
 package com.delvi511.symphogearmod;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 
 public class Recipes{
-	public static void registerIgalima(Item igalima){
+	public static void registerIgalima(){
 		// 獄鎌・イガリマのレシピを追加
-		GameRegistry.addRecipe(new ItemStack(igalima, 1),
+		GameRegistry.addRecipe(new ItemStack(GameRegistry.findItem("Symphogear-MOD", "igalimaScythe"), 1),
 								"EEE",
 								"EBI",
 								"EB_",

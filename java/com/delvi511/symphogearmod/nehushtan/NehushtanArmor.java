@@ -52,7 +52,7 @@ public class NehushtanArmor extends ItemArmor{
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){
 		if (!world.isRemote && player.isSneaking() && Keyboard.isKeyDown(Config.getPurgeKey()) && this.armorType == 1){
-			NehushtanArmorPurgeEvent purge = new NehushtanArmorPurgeEvent(player, purgingMaterial);
+			NehushtanArmorPurgeEvent purge = new NehushtanArmorPurgeEvent(player);
 			if(purge.isExecutable()){
 				purge.execute();
 			}
