@@ -10,8 +10,7 @@ import net.minecraftforge.common.config.Configuration;
 public class Config {
 	private static int purgeKeyBinding = Keyboard.KEY_B;
 
-	private FMLPreInitializationEvent event;
-	
+	private FMLPreInitializationEvent event;	
 	public Config(FMLPreInitializationEvent event){
 		this.event = event;
 	}
@@ -21,8 +20,6 @@ public class Config {
 
 		try{
 			config.load();
-
-			// Bキーをデフォルトでアーマーパージのキーとして設定
 			purgeKeyBinding = config.get(Configuration.CATEGORY_GENERAL, "PurgeKeyBinding", Keyboard.KEY_B).getInt();
 		}catch (Exception e){
 			FMLLog.log(Level.FATAL, e, "Symphogear-MOD ERROR: failed to load configuration");
