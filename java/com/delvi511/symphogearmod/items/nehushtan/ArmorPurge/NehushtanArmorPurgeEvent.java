@@ -1,12 +1,12 @@
-package com.delvi511.symphogearmod.nehushtan.ArmorPurge;
+package com.delvi511.symphogearmod.items.nehushtan.ArmorPurge;
 
 import com.delvi511.symphogearmod.entity.projectile.EntityArmorProjectile;
+import com.delvi511.symphogearmod.items.SymphogearItems;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 
 public class NehushtanArmorPurgeEvent{
@@ -19,13 +19,13 @@ public class NehushtanArmorPurgeEvent{
 	
 	private NehushtanPurgingArmor[] purgingNehushtan;
 	
-	public NehushtanArmorPurgeEvent(EntityPlayer player, ArmorMaterial purgingMaterial){
+	public NehushtanArmorPurgeEvent(EntityPlayer player){
 		this.armorPurgeUser = player;
 		this.remainingPurgeTick = maxPurgeTick;
 		
 		this.purgingNehushtan = new NehushtanPurgingArmor[4];
 		for(int i = 0; i < 4; i++){
-			this.purgingNehushtan[i] = new NehushtanPurgingArmor(purgingMaterial, i);
+			this.purgingNehushtan[i] = new NehushtanPurgingArmor(SymphogearItems.ArmorMaterial.NEHUSHTAN_PURGE, i);
 		}
 	}
 	

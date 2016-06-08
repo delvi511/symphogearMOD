@@ -1,4 +1,4 @@
-package com.delvi511.symphogearmod.nehushtan.ArmorPurge;
+package com.delvi511.symphogearmod.items.nehushtan.ArmorPurge;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

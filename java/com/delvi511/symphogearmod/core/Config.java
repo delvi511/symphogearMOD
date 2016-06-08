@@ -1,4 +1,4 @@
-package com.delvi511.symphogearmod;
+package com.delvi511.symphogearmod.core;
 
 import org.apache.logging.log4j.Level;
 import org.lwjgl.input.Keyboard;
@@ -10,13 +10,8 @@ import net.minecraftforge.common.config.Configuration;
 public class Config {
 	private static int purgeKeyBinding = Keyboard.KEY_B;
 
-	private FMLPreInitializationEvent event;	
-	public Config(FMLPreInitializationEvent event){
-		this.event = event;
-	}
-	
-	public void init(){
-		Configuration config = new Configuration(this.event.getSuggestedConfigurationFile());
+	public static void init(FMLPreInitializationEvent event){
+		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 
 		try{
 			config.load();
@@ -27,7 +22,6 @@ public class Config {
 			config.save();
 		}
 
-		return;
 	}
 
 	/**
