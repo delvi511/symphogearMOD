@@ -1,4 +1,4 @@
-package com.delvi511.symphogearmod;
+package com.delvi511.symphogearmod.core;
 
 import org.apache.logging.log4j.Level;
 import org.lwjgl.input.Keyboard;

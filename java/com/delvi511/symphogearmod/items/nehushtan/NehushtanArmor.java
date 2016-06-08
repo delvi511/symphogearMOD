@@ -2,7 +2,7 @@ package com.delvi511.symphogearmod.items.nehushtan;
 
 import org.lwjgl.input.Keyboard;
 
-import com.delvi511.symphogearmod.Config;
+import com.delvi511.symphogearmod.core.Config;
 import com.delvi511.symphogearmod.items.nehushtan.ArmorPurge.NehushtanArmorPurgeEvent;
 
 import cpw.mods.fml.relauncher.Side;
