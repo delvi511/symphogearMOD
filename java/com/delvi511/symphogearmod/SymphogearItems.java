@@ -1,5 +1,8 @@
 package com.delvi511.symphogearmod;
 
+import com.delvi511.symphogearmod.nehushtan.NehushtanArmor;
+import com.delvi511.symphogearmod.nehushtan.ArmorPurge.NehushtanPurgingArmor;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
@@ -120,12 +123,12 @@ public class SymphogearItems {
 		
 		for(int i = 0; i < 4; i++){
 			// 詳細設定
-			Item nehuArmor = new NehuItemArmor(this.nehushtanMaterial, this.nehushtanMaterial, i)
+			Item nehuArmor = new NehushtanArmor(this.nehushtanMaterial, this.nehushtanMaterial, i)
 				.setUnlocalizedName(armorSettings[i][0])
 				.setTextureName(armorSettings[i][1])
 				.setMaxStackSize(1);
 
-			Item purgingArmor = new NehuPurgingArmor(this.purgingMaterial, i)
+			Item purgingArmor = new NehushtanPurgingArmor(this.purgingMaterial, i)
 				.setUnlocalizedName(purgingArmorSettings[i][0])
 				.setTextureName(purgingArmorSettings[i][1])
 				.setMaxStackSize(1);

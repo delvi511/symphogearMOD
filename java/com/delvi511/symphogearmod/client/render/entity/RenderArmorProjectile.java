@@ -1,6 +1,9 @@
-package com.delvi511.symphogearmod;
+package com.delvi511.symphogearmod.client.render.entity;
 
 import org.lwjgl.opengl.GL11;
+
+import com.delvi511.symphogearmod.entity.projectile.EntityArmorProjectile;
+import com.delvi511.symphogearmod.util.Vec3;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -11,7 +14,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 @SideOnly(value=Side.CLIENT)
-public class AProjectileRenderer extends Render{
+public class RenderArmorProjectile extends Render{
 	/** Tessellatorのインスタンス */
 	private static final Tessellator tessellator = Tessellator.instance;
 	
@@ -19,7 +22,7 @@ public class AProjectileRenderer extends Render{
 	private static final double TRAIL_BEGIN_RADIUS = 0.3D;
 	
 	/** 軌跡半径の減衰係数*/
-	private static final double TRAIL_DELAY_COEFF = TRAIL_BEGIN_RADIUS / ArmorProjectile.POSITION_RECORD_TICK;
+	private static final double TRAIL_DELAY_COEFF = TRAIL_BEGIN_RADIUS / EntityArmorProjectile.POSITION_RECORD_TICK;
 	
 	/** 軌跡の断面の頂点数（ >= 3）*/
 	private static final int TRAIL_VERTICES = 4;
@@ -33,7 +36,7 @@ public class AProjectileRenderer extends Render{
 	 * @param yaw
 	 * @param renderTick
 	 */
-	public void doRender(ArmorProjectile entity, double x, double y, double z, float yaw, float renderTick) {
+	public void doRender(EntityArmorProjectile entity, double x, double y, double z, float yaw, float renderTick) {
 		// レンダー開始処理
 		GL11.glPushMatrix();
 		GL11.glEnable(GL11.GL_BLEND);
@@ -49,7 +52,7 @@ public class AProjectileRenderer extends Render{
 		
 		Vec3[] prevTrailVertices = null;
 		// 軌跡を数ティックの位置情報からレンダリングする
-		for(int delayTick = 0; delayTick < ArmorProjectile.POSITION_RECORD_TICK; delayTick++){
+		for(int delayTick = 0; delayTick < EntityArmorProjectile.POSITION_RECORD_TICK; delayTick++){
 			// 軌跡終了位置を取得
 			Vec3 trailEnd = entity.getCoordBefore(delayTick);
 			Vec3 nxtTrailEnd = entity.getCoordBefore(delayTick + 1);
@@ -79,7 +82,7 @@ public class AProjectileRenderer extends Render{
 	 */
 	@Override
 	public void doRender(Entity entity, double x, double y, double z, float yaw, float renderTick){
-		this.doRender((ArmorProjectile)entity, x, y, z, yaw, renderTick);
+		this.doRender((EntityArmorProjectile)entity, x, y, z, yaw, renderTick);
 	}
 	
 	/**
@@ -119,7 +122,7 @@ public class AProjectileRenderer extends Render{
 		}
 		
 		Vec3[] endVertices;
-		if(trailDelay == ArmorProjectile.POSITION_RECORD_TICK - 1){
+		if(trailDelay == EntityArmorProjectile.POSITION_RECORD_TICK - 1){
 			// 軌跡の終点への描画
 			tessellator.startDrawing(GL11.GL_TRIANGLE_FAN);
 			tessellator.addVertex(end.xCoord, end.yCoord, end.zCoord);
@@ -167,22 +170,22 @@ public class AProjectileRenderer extends Render{
 	private Vec3[] calculateTrailBeginVertex(Vec3 prevTrail, Vec3 trail, Vec3 begin, double trailBeginRadius){
 		Vec3[] vertices = new Vec3[TRAIL_VERTICES];
 		Vec3 horVec = trail.crossProduct(Vec3.createVectorHelper(0.0D, 1.0D, 0.0D)).normalize().multiply(trailBeginRadius);
-		Vec3 beginParpendVec;
+		Vec3 verVec;
 
 		if(prevTrail != null){
 			// 前回の軌跡との平均ベクトルと逆方向かつ開始点から軌跡の円柱に向かうベクトル
 			Vec3 m = trail.normalize().add(prevTrail.normalize()).normalize().multiply(-1.0D);
 			Vec3 c = horVec.crossProduct(trail).normalize();
-			beginParpendVec = m.multiply(1.0D / m.dotProduct(c));
+			verVec = m.multiply(trailBeginRadius / m.dotProduct(c));
 		}else{
-			beginParpendVec = horVec.crossProduct(trail).normalize();			
+			verVec = horVec.crossProduct(trail).normalize().multiply(trailBeginRadius);			
 		}
 
 		// 横向きのベクトルと軌跡の平均の逆ベクトルから各頂点位置を算出
 		for(int i = 0; i < TRAIL_VERTICES; i++){
 			float angle = (float)(2.0D * Math.PI * i / TRAIL_VERTICES);
 			vertices[i] = begin.add(horVec.multiply((double)MathHelper.cos(angle)))
-							   .add(beginParpendVec.multiply((double)MathHelper.sin(angle)));
+							   .add(verVec.multiply((double)MathHelper.sin(angle)));
 		}
 		
 		return vertices;

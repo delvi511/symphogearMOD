@@ -1,6 +1,8 @@
-package com.delvi511.symphogearmod;
+package com.delvi511.symphogearmod.entity.projectile;
 
 import java.util.List;
+
+import com.delvi511.symphogearmod.util.Vec3;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,9 +12,7 @@ import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 
-import com.delvi511.symphogearmod.Vec3;
-
-public class ArmorProjectile extends Entity {
+public class EntityArmorProjectile extends Entity {
 	/**　パージ使用者　*/
 	private EntityPlayer shootingEntity;
 	
@@ -44,7 +44,7 @@ public class ArmorProjectile extends Entity {
 	 * @param yaw ヨー
 	 * @param speed ティック毎の移動距離
 	 */
-	public ArmorProjectile(EntityPlayer shooter, double yOffset, float pitch, float yaw, double speed){
+	public EntityArmorProjectile(EntityPlayer shooter, double yOffset, float pitch, float yaw, double speed){
 		super(shooter.getEntityWorld());
 		this.shootingEntity = shooter;
 
