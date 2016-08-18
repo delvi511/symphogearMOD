@@ -1,13 +1,15 @@
-package com.delvi511.symphogearmod;
+package com.delvi511.symphogearmod.items.nehushtan.ArmorPurge;
+
+import com.delvi511.symphogearmod.entity.projectile.EntityArmorProjectile;
+import com.delvi511.symphogearmod.items.SymphogearItems;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 
-public class NehuPurgingEvent{
+public class NehushtanArmorPurgeEvent{
 	private static final int armorProjectilePerTick = 4;
 	private static final int maxPurgeTick = 300;
 	
@@ -15,15 +17,15 @@ public class NehuPurgingEvent{
 	
 	private int remainingPurgeTick;
 	
-	private NehuPurgingArmor[] purgingNehushtan;
+	private NehushtanPurgingArmor[] purgingNehushtan;
 	
-	public NehuPurgingEvent(EntityPlayer player, ArmorMaterial purgingMaterial){
+	public NehushtanArmorPurgeEvent(EntityPlayer player){
 		this.armorPurgeUser = player;
 		this.remainingPurgeTick = maxPurgeTick;
 		
-		this.purgingNehushtan = new NehuPurgingArmor[4];
+		this.purgingNehushtan = new NehushtanPurgingArmor[4];
 		for(int i = 0; i < 4; i++){
-			this.purgingNehushtan[i] = new NehuPurgingArmor(purgingMaterial, i);
+			this.purgingNehushtan[i] = new NehushtanPurgingArmor(SymphogearItems.ArmorMaterial.NEHUSHTAN_PURGE, i);
 		}
 	}
 	
@@ -45,6 +47,8 @@ public class NehuPurgingEvent{
 	public boolean isExecutable(){
 		/*プレーヤーがネフシュタンの鎧のセットを着ていれば真*/
 		boolean isNehushtanArmor = true;
+		
+		//TODO
 		
 		return isNehushtanArmor;
 	}
@@ -92,7 +96,7 @@ public class NehuPurgingEvent{
 			double motionPerTick = Math.random() + 2.0D;
 			
 			// 飛翔体をプレーヤーの足から頭の間のどこかに設置
-			ArmorProjectile armorProjectile = new ArmorProjectile(this.armorPurgeUser, yOffset, projectilePitch, projectileYaw, motionPerTick);
+			EntityArmorProjectile armorProjectile = new EntityArmorProjectile(this.armorPurgeUser, yOffset, projectilePitch, projectileYaw, motionPerTick);
 			
 			// 飛翔体をスポーンさせる
 			this.armorPurgeUser.getEntityWorld().spawnEntityInWorld(armorProjectile);

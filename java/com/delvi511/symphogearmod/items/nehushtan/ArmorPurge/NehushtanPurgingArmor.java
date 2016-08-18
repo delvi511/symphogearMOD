@@ -1,4 +1,4 @@
-package com.delvi511.symphogearmod;
+package com.delvi511.symphogearmod.items.nehushtan.ArmorPurge;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -6,13 +6,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
-public class NehuPurgingArmor extends ItemArmor{
+public class NehushtanPurgingArmor extends ItemArmor{
 	public static final String HELMET_TEXTURE = "symphogear:neh_pg_layer_1";
 	public static final String CHESTPLATE_TEXTURE = "symphogear:neh_pg_layer_1";
 	public static final String LEGGINGS_TEXTURE = "symphogear:neh_pg_layer_2";
 	public static final String BOOTS_TEXTURE = "symphogear:neh_pg_layer_1";
 
-	public NehuPurgingArmor(ArmorMaterial material, int type){
+	public NehushtanPurgingArmor(ArmorMaterial material, int type){
 		super(material, 0, type);
 		this.setCreativeTab(null);
 	}
