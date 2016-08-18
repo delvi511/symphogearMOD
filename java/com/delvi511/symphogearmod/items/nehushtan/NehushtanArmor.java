@@ -1,6 +1,9 @@
-package com.delvi511.symphogearmod;
+package com.delvi511.symphogearmod.items.nehushtan;
 
 import org.lwjgl.input.Keyboard;
+
+import com.delvi511.symphogearmod.core.Config;
+import com.delvi511.symphogearmod.items.nehushtan.ArmorPurge.NehushtanArmorPurgeEvent;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -11,23 +14,19 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class NehuItemArmor extends ItemArmor{
+public class NehushtanArmor extends ItemArmor{
 	// 防具のテクスチャ
 	public static final String HELMET_TEXTURE = "symphogear:neh_layer_1";
 	public static final String CHESTPLATE_TEXTURE = "symphogear:neh_layer_1";
 	public static final String LEGGINGS_TEXTURE = "symphogear:neh_layer_2";
 	public static final String BOOTS_TEXTURE = "symphogear:neh_layer_1";
 	
-	private ArmorMaterial purgingMaterial;
-
 	/**
 	 * @constructor
 	 * @param type
 	 */
-	public NehuItemArmor(ArmorMaterial nehushtanMaterial, ArmorMaterial purgingMaterial, int type){
+	public NehushtanArmor(ArmorMaterial nehushtanMaterial, int type){
 		super(nehushtanMaterial, 0, type);
-		
-		this.purgingMaterial = purgingMaterial;
 		
 		// クリエイティブのタブを「戦闘」に指定
 		this.setCreativeTab(CreativeTabs.tabCombat);
@@ -49,7 +48,7 @@ public class NehuItemArmor extends ItemArmor{
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack){
 		if (!world.isRemote && player.isSneaking() && Keyboard.isKeyDown(Config.getPurgeKey()) && this.armorType == 1){
-			NehuPurgingEvent purge = new NehuPurgingEvent(player, purgingMaterial);
+			NehushtanArmorPurgeEvent purge = new NehushtanArmorPurgeEvent(player);
 			if(purge.isExecutable()){
 				purge.execute();
 			}
